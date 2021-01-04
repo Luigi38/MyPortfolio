@@ -194,7 +194,71 @@ using (WebClient web = new WebClient())
 ```
 request를 통해 서버에 있던 파일의 데이터와 이름을 가져옴.
 
+### 폴록봇
+디스코드 대화봇. 봇이랑 장난을 치며 대화를 할 수 있음.
 
+Python으로 만들어짐.
+
+**AES-256 암호화 및 복호화**
+```python
+def encrypt(x: str, key: str) -> str:
+        raw = AES256.__pad(x)
+        iv = Random.new().read(AES.block_size)
+        cipher = AES.new(key.encode("utf-8"), AES.MODE_CBC, iv)
+        return base64.b64encode(iv + cipher.encrypt(raw.encode('utf-8'))).decode('utf-8')
+
+def decrypt(x: str, key: str) -> str:
+    enc = base64.b64decode(x)
+    iv = enc[:16]
+    cipher = AES.new(key.encode("utf-8"), AES.MODE_CBC, iv)
+    return AES256.__unpad(cipher.decrypt(enc[16:])).decode('utf-8')
+
+def __pad(s: str) -> str:
+    BS = 16
+    return s + (BS - len(s.encode('utf-8')) % BS) * chr(BS - len(s.encode('utf-8')) % BS)
+
+def __unpad(s: bytes) -> bytes:
+    return s[:-ord(s[len(s) - 1:])]
+    
+str = "Hello, World!"
+key = "HelloWorldThisIsTestSoVeryFunnyy"
+str_encrypted = encrypt(str, key) # yC4iXAwy7E80U3KXcycfyw==
+str_decrypted = decrypt(str_encrypted, key) # Hello, World! (same as str)
+```
+오류 메시지가 나올 때 평문으로 나올 경우 소스 코드가 유출이 될 위험이 있음.
+- AES-256이랑 시크릿 키를 이용하여 오류 메시지 암호화.
+
+- 개발자는 자신만 알고 있는 시크릿 키로 오류 메시지 복호화.
+
+- 소스 코드 유출이 될 수 없음.
+
+### Project A
+SNS 프로그램.
+
+C#으로 만들어짐.
+
+**SHA-512 해시**
+```c#
+public static string Hash(string str, bool lowerCase = true)
+{
+    string fin = "";
+    byte[] datas = Encoding.UTF8.GetBytes(str);
+    
+    using (System.Security.Cryptography.SHA512 sha = new System.Security.Cryptography.SHA512Managed())
+    {
+        byte[] datas_with_hash = sha.ComputeHash(datas);
+        fin = BitConverter.ToString(datas_with_hash).Replace("-", "");
+    }
+    if (lowerCase) fin = fin.ToLower();
+    
+    return fin;
+}
+        
+string password = "helloworldthisistest1234";
+string password_hash = Hash(password); //b3ab4bb5f6a2a94b9810bd7e9002a92d57a29f9d5cb51f555a97213912d91adfa415f9f045054b32045d4609b339fdb6c4906fac6a50555c601fc785824c7ad4
+```
+로그인을 할 때 해시 함수 없이 그대로 평문으로 비밀번호를 전달하면 보안의 위험성이 있음.
+- 따라서 SHA-512 해시 함수를 통해 비밀번호를 서버로 전달함.
 
 ## 언어
 C, C++, C#, Visual Basic .NET, Python, Java, Kotlin, Go
