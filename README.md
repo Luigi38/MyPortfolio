@@ -1,6 +1,10 @@
 # 나의 포트폴리오
 
 ## 나에 대해
+![MineEric64-Profile](https://i.imgur.com/PC8vVZQm.png)
+
+### MineEric64
+
 2006년에 태어나 초등학교 2학년 때 프로그래밍을 알고 공부하게 되었음.
 
 첫 프로젝트는 초등학교 6학년 때부터 시작하여 계속 이어져 오고 있음. 또한 여러 프로그래밍 언어들을 가지고 수준 높은 코드를 구상하고 짜게 됨.
@@ -263,7 +267,7 @@ string password_hash = Hash(password); //b3ab4bb5f6a2a94b9810bd7e9002a92d57a29f9
 - 보안이 강하고, 안전함.
 
 ## 언어
-C, C++, C#, Visual Basic .NET, Python, Java, Kotlin, Go
+C, C++, C#, Visual Basic .NET, Python, Kotlin, Java, Go
 
 ## 개발 IDE 프로그램
 Visual Studio, Visual Studio Code, PyCharm, Android Studio
